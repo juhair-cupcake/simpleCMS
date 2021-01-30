@@ -1,0 +1,19 @@
+{
+  "name": "simplecms",
+  "version": "1.0.0",
+  "description": "Demo CMS",
+  "main": "app.js",
+  "scripts": {
+    "test": "dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Error6251/simpleCMS.git"
+  },
+  "author": "Juhair Islam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Error6251/simpleCMS/issues"
+  },
+  "homepage": "https://github.com/Error6251/simpleCMS#readme"
+}

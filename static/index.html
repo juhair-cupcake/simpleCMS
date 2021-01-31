@@ -4,9 +4,100 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TEST</title>
-    <link rel="stylesheet" href="public/style.css" />
   </head>
   <body>
-    <h1>Testing...</h1>
+    <h1>LuL hoe gelam...</h1>
+    <div>
+      <form onsubmit="return submited1(event)">
+        <label for="path">Input the path</label><br />
+        <input type="text" id="path1" /><br />
+        <input type="submit" value="Submit" />
+      </form>
+      <div>example:</div>
+      <div>/home/error6251/Documents/Project/blogge-hugo/content</div>
+      <br />
+      <u><div>Output</div></u>
+      <div id="output1"></div>
+    </div>
+    <br />
+    <br />
+    <div>
+      <form onsubmit="return submited2(event)">
+        <label for="path">Input the path</label><br />
+        <input type="text" id="path2" /><br />
+        <input type="submit" value="Submit" />
+      </form>
+      <u><div>Output</div></u>
+      <div id="output2"></div>
+    </div>
   </body>
+  <script>
+    submited1 = (e) => {
+      e.preventDefault();
+
+      let input = document.getElementById("path1").value;
+      let result = [];
+
+      fetch(`/post/location`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          location: input,
+        }),
+      });
+
+      fetch(`/result/files`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("HTTP error " + response.status);
+          }
+          return response.json();
+        })
+        .then((json) => {
+          result = json.found;
+          result.map((lol) => {
+            document.getElementById("output1").innerHTML += `${lol}<br>`;
+          });
+        })
+        .catch(function () {
+          this.dataError = true;
+        });
+
+      return false;
+    };
+    submited2 = (e) => {
+      e.preventDefault();
+
+      let input = document.getElementById("path2").value;
+
+      fetch(`/post/file`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          location: input,
+        }),
+      });
+
+      fetch(`/result/text`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("HTTP error " + response.status);
+          }
+          return response.json();
+        })
+        .then((json) => {
+          console.log("Found Something");
+          document.getElementById("output2").innerHTML = `${json.found}<br>`;
+        })
+        .catch(function () {
+          this.dataError = true;
+        });
+
+      return false;
+    };
+  </script>
 </html>

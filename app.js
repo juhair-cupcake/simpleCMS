@@ -10,7 +10,7 @@ const evEmit = new EventEmitter();
 //let location = "/home/error6251/Documents/Project/blogge-hugo";
 let dirFolder = [];
 let dirFiles = [];
-let fileItem;
+let fileItem = null;
 
 app.use(express.json());
 app.use("/public", express.static(path.join(__dirname, "static")));
@@ -28,6 +28,9 @@ app.listen(port, () => {
 // Route
 app.post("/post/location", (req, res) => {
   let location = req.body.location;
+
+  dirFolder.length = 0;
+  dirFiles.length = 0;
   travelFolder(location);
 });
 
@@ -54,33 +57,51 @@ app.get("/result/text", function (req, res) {
 
 // Go to the given folder and check is it a file with an extention or...
 const travelFolder = (filePath) => {
-  dirFolder.length = 0;
-  dirFiles.length = 0;
   fs.readdir(filePath, (err, files) => {
-    if (files != null)
+    if (err) {
+      console.log(err);
+      dirFiles.push("Wrong Location!!!");
+      return;
+    } else if (files != null) {
       [...files].forEach((file) => {
         //check the file extention
-
         let place = `${filePath}/${file}`;
         let extention = path.extname(file);
 
-        if (extention == "") {
-          if (dirFolder.indexOf(place) == -1) {
-            dirFolder.push(place);
-            travelFolder(place);
+        //Check is it a folder...?
+        fs.stat(place, (err, stats) => {
+          if (err) {
+            console.log(err);
+            return;
+          } else if (stats.isDirectory() && file[0] != ".") {
+            if (dirFolder.indexOf(place) == -1) {
+              dirFolder.push(place);
+              travelFolder(place);
+            }
+            return;
+          } else if (
+            stats.isFile() &&
+            (extention == ".md" || extention == ".yml" || extention == ".toml")
+          ) {
+            dirFiles.push(place);
+            return;
           }
-        } else {
-          dirFiles.push(place);
-        }
+        });
       });
+    }
   });
 };
 
 // Read the valid files
 const readFiles = (filePath) => {
-  fileItem = "null";
   const readStream = fs.createReadStream(filePath, "utf8");
+  readStream.on("error", (err) => {
+    console.log(err);
+    fileItem = "Wrong Location!!!";
+    return;
+  });
   readStream.on("data", (chunk) => {
     fileItem = chunk;
+    return;
   });
 };

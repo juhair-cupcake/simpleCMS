@@ -1,0 +1,17 @@
+.outtextEditor {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  margin: 10px;
+}
+#editor {
+  flex: 1;
+  border: solid 2px black;
+  padding: 10px;
+}
+#preview {
+  flex: 1;
+  border: solid 2px black;
+  padding: 10px;
+  min-height: 100px;
+}

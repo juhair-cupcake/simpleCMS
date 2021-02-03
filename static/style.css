@@ -2,16 +2,20 @@
   display: flex;
   justify-content: center;
   height: 100%;
-  margin: 10px;
 }
 #editor {
   flex: 1;
   border: solid 2px black;
   padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  list-style: none;
 }
 #preview {
   flex: 1;
   border: solid 2px black;
   padding: 10px;
   min-height: 100px;
+  margin: 5px;
+  border-radius: 5px;
 }

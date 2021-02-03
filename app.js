@@ -1,3 +1,4 @@
+const exec = require("child_process").exec;
 const express = require("express");
 const path = require("path");
 // const EventEmitter = require("events");
@@ -9,12 +10,15 @@ const app = express();
 let dirFolder = [];
 let dirFiles = [];
 let fileItem = null;
-let count = 0;
+let saveStatus = null;
+let gitStatus = null;
+let savdData = null;
 
 app.use(express.json());
 app.use("/public", express.static(path.join(__dirname, "static")));
 
 app.get("/", (req, res) => {
+  console.log("Found new USER");
   res.sendFile(path.join(__dirname, "static", "index.html"));
 });
 
@@ -27,8 +31,6 @@ app.listen(port, () => {
 
 // Route
 app.post("/post/location", (req, res) => {
-  console.log(count);
-  count = 0;
   let location = req.body.location;
 
   dirFolder.length = 0;
@@ -42,7 +44,7 @@ app.post("/post/location", (req, res) => {
     };
     res.send(JSON.stringify(jsonString));
     console.log("All file list sended");
-  }, 50);
+  }, 100);
 });
 
 app.post("/post/file", (req, res) => {
@@ -55,17 +57,46 @@ app.post("/post/file", (req, res) => {
       found: fileItem,
     };
     res.send(JSON.stringify(jsonString));
-    console.log("sending file data");
-  }, 50);
+    console.log("File data sended");
+  }, 100);
+});
+
+app.post("/post/save", (req, res) => {
+  let location = req.body.location;
+  savdData = req.body.fileData;
+  writeFiles(location);
+  console.log("Found Saving request");
+
+  setTimeout(() => {
+    var jsonString = {
+      found: saveStatus,
+    };
+    res.send(JSON.stringify(jsonString));
+    console.log("Saving status sended");
+  }, 100);
+});
+
+app.post("/git/push", (req, res) => {
+  let location = req.body.location;
+  let changeName = req.body.files;
+
+  pushGit(location, changeName);
+  console.log("Exicuting git commands");
+
+  setTimeout(() => {
+    var jsonString = {
+      found: gitStatus,
+    };
+    res.send(JSON.stringify(jsonString));
+  }, 1000);
 });
 
 //Game star here...
 // Go to the given folder and check is it a file with an extention or...
 const travelFolder = (filePath) => {
-  count++;
   fs.readdir(filePath, (err, files) => {
     if (err) {
-      console.log(err);
+      console.log("They send us an wrong location\n", err);
       dirFiles.push("Wrong Location!!!");
     } else if (files != null) {
       [...files].forEach((file) => {
@@ -100,11 +131,50 @@ const readFiles = (filePath) => {
   console.log("reading file");
   const readStream = fs.createReadStream(filePath, "utf8");
   readStream.on("error", (err) => {
-    console.log(err);
-    readStream.destroy();
+    console.log("They send us an wrong location\n", err);
   });
   readStream.on("data", (chunk) => {
     fileItem = chunk;
-    readStream.destroy();
+  });
+};
+
+//Save the file
+const writeFiles = (filePath) => {
+  console.log("writing file");
+
+  const writerStream = fs
+    .createWriteStream(filePath, { flags: "w" })
+    .on("finish", function () {
+      console.log("Writing File completed");
+    })
+    .on("error", function (err) {
+      saveStatus = " File Path location is Wrong";
+      console.log(err.stack);
+    });
+  writerStream.write(savdData, () => {
+    saveStatus = "Saved";
+  });
+  writerStream.end();
+};
+
+//Push it with git command
+const pushGit = (filePath, changeName) => {
+  let command = `cd ${filePath} && git add . && git commit -m "updated: ${changeName}by BOT" && git push origin master`;
+
+  exec(command, (err, stdout, stderr) => {
+    if (err) {
+      console.log(err);
+      gitStatus = err;
+      return;
+    }
+    if (stderr) {
+      console.log(stderr);
+      gitStatus = stderr;
+      return;
+    }
+    console.log("\n");
+    console.log(stdout);
+    console.log("\ngit exicution sended");
+    gitStatus = stdout;
   });
 };

@@ -7,23 +7,25 @@
     <title>TEST</title>
   </head>
   <body>
-    <h1>LuL hoe gelam...</h1>
-    <div>
+    <section>
+      <h1>LuL hoe gelam...</h1>
+    </section>
+    <section>
       <form onsubmit="return submited1(event)">
-        <label for="path">Open Directory</label><br />
+        <label>Open Directory</label><br />
         <input type="text" id="path1" /><br />
         <input type="submit" value="Submit" />
       </form>
       <div>example:</div>
-      <div>/home/error6251/Documents/Project/blogge-hugo</div>
+      <div>/home/error6251/Documents/Project/My_Note</div>
       <br />
       <u>Output</u>
       <div id="output1"></div>
-    </div>
+    </section>
     <br />
-    <div>
+    <section>
       <form onsubmit="return submited2(event)">
-        <label for="path">File Path</label><br />
+        <label>File Path</label><br />
         <input type="text" id="path2" /><br />
         <input type="submit" value="Submit" />
       </form>
@@ -38,7 +40,20 @@
         ></textarea>
         <div id="preview"></div>
       </div>
-    </div>
+    </section>
+    <section>
+      <form onsubmit="return saveIt(event)">
+        <input type="submit" value="SAVE FILE" />
+      </form>
+    </section>
+    <section>
+      <h3>Push The File On GitHub</h3>
+      <form onsubmit="return pushIt(event)">
+        <label for="path">Give The Directory Again</label><br />
+        <input type="text" id="path3" /><br />
+        <input type="submit" value="GIT PUSH" />
+      </form>
+    </section>
   </body>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="public/main.js"></script>

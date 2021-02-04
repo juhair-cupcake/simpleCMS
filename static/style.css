@@ -72,6 +72,7 @@ a {
   background-color: var(--secondaryColor);
   padding: 10px;
   margin: 10px;
+  box-shadow: 10px 10px 20px #4040402b;
 }
 .header h3 {
   padding: 10px;

@@ -1,21 +1,224 @@
-.outtextEditor {
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+/* Varriables */
+
+:root {
+  --primaryFont: "Raleway";
+  --secondaryFont: "Roboto Mono";
+  --primaryColor: #e4e4e4;
+  --secondaryColor: #ffffff;
+}
+
+/* All The Shit */
+
+* {
+  border-radius: 5px;
+}
+
+/* Some common shit */
+
+body {
+  font-family: var(--secondaryFont), sans-serif;
+  font-family: var(--primaryFont), monospace;
+  background-color: var(--primaryColor);
+  padding: 0;
+  margin: 0;
+}
+.conteiner {
+  padding: 0px 50px;
+}
+.label {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0px 0px 10px;
+}
+form {
+  margin: 10px 0px;
+}
+.input {
+  width: 40%;
+  border: solid 2px #000000;
+  font-size: 16px;
+  padding: 10px 10px;
+  background: var(--secondaryColor);
+  box-shadow: 10px 10px 10px #0000001d;
+  outline: 0;
+}
+.input:hover {
+  border: solid 2px #706e7d;
+}
+.btn {
+  font-family: var(--secondaryFont), sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 10px 20px;
+  background: var(--secondaryColor);
+  border: solid 2px #000000;
+  box-shadow: 10px 10px 10px #0000001d;
+  outline: 0;
+}
+.btn:hover {
+  background: var(--primaryColor);
+}
+a {
+  color: rgb(21, 56, 126);
+}
+
+/* All Other */
+
+.header {
+  border: solid 2px #000000;
+  background-color: var(--secondaryColor);
+  padding: 10px;
+  margin: 10px;
+}
+.header h3 {
+  padding: 10px;
+  font: var(--secondaryFont);
+  font-weight: 500;
+  margin: 0px;
+  font-size: 30px;
+}
+
+/**/
+
+.directory {
+  margin: 50px 0px;
+}
+.directory-wrapper {
   display: flex;
   justify-content: center;
-  height: 100%;
+  align-items: center;
+}
+.directory-left {
+  width: 40%;
+  margin: auto;
+  padding: 0px 50px;
+}
+.directory-right {
+  text-align: left;
+  margin: auto 50px;
+  font-size: 60px;
+  color: #2e2e2e;
+  width: 60%;
+}
+.directory-input {
+  margin: 10px 0px;
+}
+.directory-example {
+  margin: 10px 0px;
+}
+.directory-output {
+  margin: 10px 0px;
+}
+.directory-output h3 {
+  font-size: 18px;
+  text-decoration: underline;
+  font-weight: 400;
+  margin: 0px 0px 10px;
+}
+.directory-output h3:after {
+  content: ":";
+}
+
+/**/
+
+.files {
+  margin: 50px 30px;
+}
+.files-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.files-left {
+  width: 60%;
+  text-align: left;
+}
+.files-right {
+  width: 40%;
+  margin: auto;
+}
+.files-left h3 {
+  padding: 50px 50px 0px 0px;
+  margin: 20px 0px;
+  font-size: 70px;
+  color: #2e2e2e;
+}
+#output1 {
+  line-height: 40px;
+  padding-left: 2px;
+}
+
+/**/
+
+.edit {
+  margin: 50px 0px;
+}
+.edit .h3 {
+  text-align: center;
+  padding: 50px;
+  margin: 20px 0px;
+  padding-bottom: 5px;
+  font-size: 40px;
+  color: #2e2e2e;
+}
+.edit-titles {
+  display: flex;
+  justify-content: center;
+}
+.edit-titles .h4 {
+  flex: 1;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0px 10px 5px;
+}
+.edit-wrapper {
+  display: flex;
+  justify-content: center;
 }
 #editor {
   flex: 1;
-  border: solid 2px black;
+  margin: 5px 5px 5px 0px;
   padding: 10px;
-  margin: 5px;
+  border: solid 2px black;
   border-radius: 5px;
-  list-style: none;
+  outline: 0;
+  box-shadow: 10px 10px 20px #0000002b;
+  background-color: var(--secondaryColor);
+  font-size: 18px;
+  min-height: 100px;
+}
+#editor:hover {
+  border: solid 2px #706e7d;
 }
 #preview {
   flex: 1;
-  border: solid 2px black;
+  margin: 5px 0px 5px 5px;
   padding: 10px;
-  min-height: 100px;
-  margin: 5px;
+  padding: 10px;
+  border: solid 2px black;
   border-radius: 5px;
+  background-color: var(--secondaryColor);
+  box-shadow: 10px 10px 20px #0000002b;
+  min-height: 100px;
+}
+#preview h1 {
+  font-size: xx-large;
+}
+#preview:hover {
+  border: solid 2px #706e7d;
+}
+
+/**/
+
+.push {
+  margin: 50px 0px;
+}
+.push h3 {
+  margin: 20px 0px;
+  padding-bottom: 5px;
+  font-size: 40px;
+  color: #2e2e2e;
 }

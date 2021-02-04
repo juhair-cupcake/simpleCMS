@@ -22,7 +22,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "static", "index.html"));
 });
 
-console.clear();
 //Listen to the port
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
@@ -159,7 +158,7 @@ const writeFiles = (filePath) => {
 
 //Push it with git command
 const pushGit = (filePath, changeName) => {
-  let command = `cd ${filePath} && git add . && git commit -m "updated: ${changeName}by BOT" && git push origin master`;
+  let command = `cd ${filePath} && git add . && git commit -m "updated: ${changeName}" && git push origin master`;
 
   exec(command, (err, stdout, stderr) => {
     if (err) {

@@ -4,7 +4,7 @@
   "description": "Demo CMS",
   "main": "app.js",
   "scripts": {
-    "test": "dev"
+    "dev": "node app.js"
   },
   "repository": {
     "type": "git",

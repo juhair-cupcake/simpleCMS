@@ -5,6 +5,7 @@ let input1 = "",
   updatedFiles = "",
   updateList = [],
   rootDir = "";
+document.getElementById("preview").innerHTML = marked(textEditor.value);
 
 // Welcome to the callBack HELLLLLLL...
 const submited1 = (e) => {
